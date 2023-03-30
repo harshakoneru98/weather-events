@@ -1,8 +1,9 @@
 {
-  "name": "xtreme-weather",
+  "name": "weather-events",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@iconify/icons-emojione": "^1.2.6",
     "@iconify/react": "^4.1.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

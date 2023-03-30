@@ -1,5 +1,13 @@
+import Header from './components/Header';
+import Map from './components/Map';
+
 function App() {
-    return <div className="App">Hello World</div>;
+    return (
+        <div>
+            <Header />
+            <Map />
+        </div>
+    );
 }
 
 export default App;
