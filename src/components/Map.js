@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import GoogleMapReact from 'google-map-react';
+import LocationMarker from './LocationMarker';
 // import useSuperCluster from 'use-supercluster';
 
 export default function Map({ center, eventData }) {
@@ -8,11 +9,13 @@ export default function Map({ center, eventData }) {
         <div className="map-container">
             <GoogleMapReact
                 bootstrapURLKeys={{
-                    key: 'AIzaSyCf_0QW3G3uKNCKZyX4wAjtJ1hPdev8wWY'
+                    key: process.env.REACT_APP_GOOGLE_API_KEY
                 }}
                 center={center}
                 zoom={zoom}
-            ></GoogleMapReact>
+            >
+                <LocationMarker lat={center.lat} lng={center.lng} id={8} />
+            </GoogleMapReact>
         </div>
     );
 }

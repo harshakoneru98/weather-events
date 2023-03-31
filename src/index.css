@@ -25,3 +25,8 @@ body{
   padding: 10px;
   font-size: 20px;
 }
+
+.location-icon {
+  font-size: 2rem;
+  position: relative;
+}
