@@ -5,6 +5,39 @@ import LocationMarker from './LocationMarker';
 
 export default function Map({ center, eventData }) {
     const [zoom, setZoom] = useState(1);
+
+    // Index for reference
+    const eventDataIndex = {
+        8: 'Wildfires',
+        10: 'Severe Storms',
+        12: 'Volcanoes',
+        15: 'Sea and Lake Ice'
+    };
+
+    // Create an Array of its keys
+    let eventDataIndexNum = Object.keys(eventDataIndex);
+    eventDataIndexNum = eventDataIndexNum.map((index) => Number(index));
+
+    // Setup the geo-features
+    const points = eventData.map((event) => ({
+        type: 'Feature',
+        properties: {
+            cluster: false,
+            eventKey: event.id,
+            eventTitle: event.title,
+            eventType: event.categories[0].id
+        },
+        geometry: {
+            type: 'Point',
+            coordinates: [
+                event.geometries[0].coordinates[0],
+                event.geometries[0].coordinates[1]
+            ]
+        }
+    }));
+
+    console.log('Points : ', points);
+
     return (
         <div className="map-container">
             <GoogleMapReact
@@ -13,9 +46,7 @@ export default function Map({ center, eventData }) {
                 }}
                 center={center}
                 zoom={zoom}
-            >
-                <LocationMarker lat={center.lat} lng={center.lng} id={8} />
-            </GoogleMapReact>
+            ></GoogleMapReact>
         </div>
     );
 }
