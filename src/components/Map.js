@@ -1,10 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import LocationMarker from './LocationMarker';
 import useSuperCluster from 'use-supercluster';
 import LocationInfoBox from './LocationInfoBox';
+import { useMainContext } from '../context/context';
 
 export default function Map({ center, eventData }) {
+    const { selectedEvent } = useMainContext();
+
     const mapRef = useRef();
     const [zoom, setZoom] = useState(1);
     const [bounds, setBounds] = useState(null);
@@ -48,6 +51,16 @@ export default function Map({ center, eventData }) {
         zoom,
         options: { radius: 75, maxZoom: 20 }
     });
+
+    //User has clicked on searched link. They want to go to it
+    useEffect(() => {
+        if (selectedEvent !== null) {
+            let longitude = selectedEvent.geometries[0].coordinates[0];
+            let latitude = selectedEvent.geometries[0].coordinates[1];
+            mapRef.current.panTo({ lat: latitude, lng: longitude });
+            mapRef.current.setZoom(10);
+        }
+    }, [selectedEvent]);
 
     return (
         <div className="map-container">
